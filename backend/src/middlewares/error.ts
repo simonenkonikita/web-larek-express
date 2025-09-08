@@ -1,24 +1,11 @@
 import { Request, Response, NextFunction } from 'express';
-import BadRequestError from '../errors/bad-request-error';
-import ConflictError from '../errors/conflict-error';
-import NotFoundError from '../errors/not-found-error';
+import { statusCode } from '../errors/index';
 
-const errorHandler = (error: Error, _req: Request, res: Response, _next: NextFunction) => {
-  let statusCode = 500;
-  let message = 'На сервере произошла ошибка';
+const errorHandler = (error: any, _req: Request, res: Response, _next: NextFunction) => {
+  const status = error.statusCode || statusCode.INTERNAL_SERVER_ERROR;
+  const message = error.message || 'На сервере произошла ошибка';
 
-  if (error instanceof BadRequestError) {
-    statusCode = error.statusCode;
-    message = error.message;
-  } else if (error instanceof ConflictError) {
-    statusCode = error.statusCode;
-    message = error.message;
-  } else if (error instanceof NotFoundError) {
-    statusCode = error.statusCode;
-    message = error.message;
-  }
-
-  res.status(statusCode).json({
+  res.status(status).json({
     success: false,
     message,
   });
