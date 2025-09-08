@@ -1,6 +1,6 @@
 import statusCode from './statusCode';
 
-class conflictError extends Error {
+class ConflictError extends Error {
   public statusCode: number;
 
   constructor(message: string) {
@@ -8,4 +8,4 @@ class conflictError extends Error {
     this.statusCode = statusCode.CONFLICT;
   }
 }
-export default conflictError;
+export default ConflictError;

@@ -1,17 +1,20 @@
 import { Request, Response, NextFunction } from 'express';
 import { Error as MongooseError } from 'mongoose';
 import Product from '../models/product';
-import BadRequestError from '../errors/bad-request-error';
-import ConflictError from '../errors/conflict-error';
+import {
+  BadRequestError,
+  ConflictError,
+  statusCode
+} from '../errors';
 
 export const getProducts = async (_req: Request, res: Response, next: NextFunction) => {
   try {
     const products = await Product.find({});
 
-    res.status(200).json({
+    res.status(statusCode.OK).json({
       success: true,
       data: products,
-      total: products.length,
+      total: products.length
     });
   } catch (error) {
     next(error);
@@ -30,11 +33,11 @@ export const createProducts = async (req: Request, res: Response, next: NextFunc
 
     const product = await Product.create(body);
 
-    return res.status(201).json({
+    return res.status(statusCode.CREATED).json({
       success: true,
       data: product,
-      message: 'Продукт успешно создан',
-    });
+      message: "Продукт успешно создан"
+    })
   } catch (error) {
     if (error instanceof Error && error.message.includes('E11000')) {
       if (error.message.includes('title')) {

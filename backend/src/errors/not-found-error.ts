@@ -1,6 +1,6 @@
 import statusCode from './statusCode';
 
-class notFoundError extends Error {
+class NotFoundError extends Error {
   public statusCode: number;
 
   constructor(message: string) {
@@ -8,4 +8,4 @@ class notFoundError extends Error {
     this.statusCode = statusCode.NOT_FOUND;
   }
 }
-export default notFoundError;
+export default NotFoundError;

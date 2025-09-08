@@ -3,8 +3,10 @@ import { randomUUID } from 'crypto';
 import { Error as MongooseError } from 'mongoose';
 import Product from '../models/product';
 import { IOrder } from '../middlewares/validations';
-import statusCode from '../errors/statusCode';
-import BadRequestError from '../errors/bad-request-error';
+import {
+  BadRequestError,
+  statusCode
+} from '../errors';
 
 const createOrder = async (req: Request, res: Response, next: NextFunction) => {
   const { total, items }: IOrder = req.body;
