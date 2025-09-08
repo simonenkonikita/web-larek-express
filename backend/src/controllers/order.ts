@@ -5,8 +5,8 @@ import Product from '../models/product';
 import { IOrder } from '../middlewares/validations';
 import {
   BadRequestError,
-  statusCode
-} from '../errors';
+  statusCode,
+} from '../errors/index';
 
 const createOrder = async (req: Request, res: Response, next: NextFunction) => {
   const { total, items }: IOrder = req.body;

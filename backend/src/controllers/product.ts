@@ -4,8 +4,8 @@ import Product from '../models/product';
 import {
   BadRequestError,
   ConflictError,
-  statusCode
-} from '../errors';
+  statusCode,
+} from '../errors/index';
 
 export const getProducts = async (_req: Request, res: Response, next: NextFunction) => {
   try {
@@ -13,8 +13,10 @@ export const getProducts = async (_req: Request, res: Response, next: NextFuncti
 
     res.status(statusCode.OK).json({
       success: true,
-      data: products,
-      total: products.length
+      data: {
+        items: products,
+        total: products.length,
+      },
     });
   } catch (error) {
     next(error);
@@ -36,8 +38,8 @@ export const createProducts = async (req: Request, res: Response, next: NextFunc
     return res.status(statusCode.CREATED).json({
       success: true,
       data: product,
-      message: "Продукт успешно создан"
-    })
+      message: 'Продукт успешно создан',
+    });
   } catch (error) {
     if (error instanceof Error && error.message.includes('E11000')) {
       if (error.message.includes('title')) {
