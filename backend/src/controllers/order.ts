@@ -31,14 +31,7 @@ const createOrder = async (req: Request, res: Response, next: NextFunction) => {
       return next(new BadRequestError('Неверная сумма заказа'));
     }
 
-    return res.status(statusCode.OK).json({
-      success: true,
-      data: {
-        id: orderId,
-        total: calculatedTotal,
-        message: 'Заказ успешно создан',
-      },
-    });
+    return res.status(statusCode.OK).json({ orderId, total: calculatedTotal });
   } catch (error) {
     if (error instanceof MongooseError.ValidationError) {
       return next(new BadRequestError('Ошибка создания заказа'));
