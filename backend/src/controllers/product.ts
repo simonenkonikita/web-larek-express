@@ -15,7 +15,6 @@ export const getProducts = async (_req: Request, res: Response, next: NextFuncti
       items: products,
       total: products.length,
     });
-
   } catch (error) {
     next(error);
   }
@@ -34,7 +33,6 @@ export const createProducts = async (req: Request, res: Response, next: NextFunc
     const product = await Product.create(body);
 
     return res.status(statusCode.CREATED).json({ product });
-
   } catch (error) {
     if (error instanceof Error && error.message.includes('E11000')) {
       if (error.message.includes('title')) {
